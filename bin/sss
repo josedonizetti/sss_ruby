@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require "thor"
+require "sss_ruby"
+
+class SSSRubyCLI < Thor
+  desc "compile(file)", "compile an SSS file"
+  def compile(file)
+    raise "File does not exist!" unless File.exist?(file)
+    sss = File.read(file)
+    puts "Empty file." if sss.empty?
+    puts SSS::Engine.new.compile(sss) unless sss.empty?
+  end
+end
+
+SSSRubyCLI.start(ARGV)

@@ -1,0 +1,1 @@
+require 'sss_ruby'
