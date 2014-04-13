@@ -14,6 +14,8 @@ module SSS
       if token[0] == :VARIABLE &&
         (tokens[0][0] == ":" || tokens[0][0] == "=" )
          nodes << parse_assign(token, tokens)
+      elsif token[0] == :IMPORT
+          nodes << parse_import(token)
       elsif token[0] == :IDENTIFIER &&
         (tokens[0][0] == ":" || tokens[0][0] == "=" )
         nodes << parse_property(token, tokens)
@@ -72,6 +74,10 @@ module SSS
       end
 
       values
+    end
+
+    def parse_import(current_token)
+      Import.new(current_token[1])
     end
 
   end

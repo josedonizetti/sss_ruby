@@ -142,5 +142,21 @@ CODE
       expect(tokens).to eq(expected_tokens)
     end
 
+    it "should tokenize an import directive" do
+      expected_tokens = [
+        [:IMPORT, "'lib/another.sss'"],
+        [:NEWLINE, "\n"],
+        [:IMPORT, "\"lib/another.css\""]
+      ]
+
+      code  =
+<<-CODE
+import 'lib/another.sss'
+import "lib/another.css"
+CODE
+      tokens = lexer.tokenize(code)
+      expect(tokens).to eq(expected_tokens)
+    end
+
   end
 end

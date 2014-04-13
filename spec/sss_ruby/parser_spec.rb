@@ -138,5 +138,20 @@ module SSS
          ])
        ]))
     end
+
+    it "should paser import directives" do
+      tokens = [
+        [:IMPORT, "'lib/another.sss'"],
+        [:NEWLINE, "\n"],
+        [:IMPORT, "\"lib/another.css\""]
+      ]
+
+      stylesheet = @parser.parse(tokens)
+
+      expect(stylesheet).to eq(StyleSheet.new([
+        Import.new("'lib/another.sss'"),
+        Import.new("\"lib/another.css\"")
+      ]))
+    end
   end
 end

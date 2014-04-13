@@ -17,6 +17,10 @@ module SSS
         chunk = code[i..-1]
         if comment = chunk[/\A\/\/(.*)/,1]
           i += comment.size + 2
+        elsif import = chunk[/\Aimport(\s+[\'\"].*[\'\"])/i,1]
+          size = import.size
+          tokens << [:IMPORT, import.strip]
+          i += size + "import".size
         elsif variable = chunk[/\A@([a-z]\w*)/,1]
           tokens << [:VARIABLE, variable]
           i += variable.size + 1
